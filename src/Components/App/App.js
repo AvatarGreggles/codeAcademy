@@ -45,11 +45,12 @@ class App extends Component {
 
   }
 
-  search(term){
-    
-    const searchResults = Spotify.search();
-    this.setState({searchResults: searchResults});
+   search(term){
 
+    Spotify.search(term)
+    .then(searchResults => this.setState({
+      searchResults: searchResults
+    }));
   }
 
   render() {
