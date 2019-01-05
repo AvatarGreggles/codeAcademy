@@ -13,7 +13,7 @@ class SearchBar extends React.Component{
     this.handleTermChange = this.handleTermChange.bind(this);
   }
 
-  search(term){
+  search(){
     console.log('search');
     this.props.onSearch(this.state.term);
 
@@ -28,7 +28,7 @@ class SearchBar extends React.Component{
     return(
       <div className="SearchBar">
   <input onChange={this.handleTermChange} placeholder="Enter A Song, Album, or Artist" />
-  <a>SEARCH</a>
+  <a onClick={this.search}>SEARCH</a>
 </div>
     )
   }

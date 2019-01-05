@@ -5,6 +5,8 @@ import SearchResults from '../SearchResults/SearchResults';
 import Playlist from '../Playlist/Playlist';
 import Spotify from '../../util/Spotify';
 
+Spotify.getAccessToken();
+
 class App extends Component {
   constructor(props){
     super(props);
@@ -45,13 +47,14 @@ class App extends Component {
 
   }
 
-   search(term){
+  search(term){
 
     Spotify.search(term)
     .then(searchResults => this.setState({
       searchResults: searchResults
     }));
   }
+
 
   render() {
     return (
