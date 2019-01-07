@@ -1,6 +1,7 @@
 let accessToken = undefined;
 let expiresIn = undefined;
-const redirectUri = 'http://localhost:3000/';
+const redirectUri = 'http://greggles.surge.sh';
+//const redirectUri = 'http://localhost:3000/';
 const clientId = 'eec9cfacecf748899f08399a8c4095cb';
 const spotifyUrl = `https://accounts.spotify.com/authorize?response_type=token&scope=playlist-modify-public&client_id=${clientId}&redirect_uri=${redirectUri}`;
 
@@ -55,16 +56,17 @@ search(term) {
       let userId = undefined;
       let playlistId = undefined;
 
-      fetch(currentUser, {headers: headers
+      fetch(currentUser, {
+        headers: headers
       })
       .then(response => response.json())
       .then(jsonResponse => userId = jsonResponse.id)
       .then(() => {
-        const createPlayListURL = `https://api.spotify.com/v1/v1/users/${userId}/playlists`;
+        const createPlayListURL = `https://api.spotify.com/v1/users/${userId}/playlists`;
         fetch(createPlayListURL, {
           method: 'POST',
           headers: headers,
-          body: JSON.stringif({
+          body: JSON.stringify({
             name: name
           })
         })
@@ -75,7 +77,7 @@ search(term) {
           fetch(addPlayListTracksUrl , {
             method: 'POST',
             headers: headers,
-            body: JSON.stringif({
+            body: JSON.stringify({
               uris: trackURIs
           })
         });
