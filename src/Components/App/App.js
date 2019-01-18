@@ -3,6 +3,7 @@ import './App.css';
 import SearchBar from '../SearchBar/SearchBar';
 import SearchResults from '../SearchResults/SearchResults';
 import Playlist from '../Playlist/Playlist';
+import ExistingPlaylists from '../ExistingPlaylists/ExistingPlaylists';
 import Spotify from '../../util/Spotify';
 
 Spotify.getAccessToken();
@@ -12,7 +13,8 @@ class App extends Component {
     super(props);
     this.state = {searchResults: [],
                 playlistName: 'New Playlist',
-                playlistTracks: []
+                playlistTracks: [],
+                existingPlaylists: []
                 }
 
   this.addTrack = this.addTrack.bind(this);
@@ -20,6 +22,7 @@ class App extends Component {
   this.updatePlaylistName = this.updatePlaylistName.bind(this);
   this.savePlaylist = this.savePlaylist.bind(this);
   this.search = this.search.bind(this);
+  this.getUsersPlaylists = this.getUsersPlaylists.bind(this);
   }
 
   addTrack(track){
@@ -73,10 +76,32 @@ class App extends Component {
          playlistTracks: []
      }
     },
-       () => {this.updatePlaylistName('New Playlist')}
+       () => {
+         this.updatePlaylistName('New Playlist');
+
+       }
      );
 
  }
+
+ getUsersPlaylists(){
+
+   Spotify.getUsersPlaylists()
+   .then(usersPlaylists => {
+     usersPlaylists.forEach((playlist) =>{
+       Spotify.getUserPlaylistTracks(playlist.id).then((tracks) =>{
+         playlist.tracklist = tracks;
+         this.setState({existingPlaylists: usersPlaylists});
+
+
+       });
+
+
+     })
+   });
+
+ }
+
 
   search(term){
 
@@ -88,16 +113,25 @@ class App extends Component {
 
 
 
+
   render() {
     return (
       <div>
         <h1>Ja<span className="highlight">mm</span>ing</h1>
         <div className="App">
           <SearchBar onSearch={this.search}/>
+
           <div className="App-playlist">
             <SearchResults onAdd={this.addTrack} searchResults={this.state.searchResults}/>
             <Playlist onSave={this.savePlaylist} onNameChange={this.updatePlaylistName} onRemove={this.removeTrack} playlistTracks={this.state.playlistTracks} playlistName={this.state.playlistName}/>
           </div>
+          <div className="User-Playlists">
+          <ExistingPlaylists userPlaylists={this.state.existingPlaylists} getUsersPlaylists={this.getUsersPlaylists}/>
+
+          </div>
+
+
+
         </div>
         <div>
 

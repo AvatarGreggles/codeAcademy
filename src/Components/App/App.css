@@ -38,11 +38,45 @@ h2 {
   color: #fff;
 }
 
-.App-playlist {
+.App-playlist, .User-Playlists {
   display: flex;
   justify-content: space-between;
   width: 100%;
 }
+
+.App-playlist{
+    max-height: 500px;
+      margin-bottom: 40px;
+}
+
+.Search-Button, .Action-Button{
+  cursor: pointer;
+  width: 10rem;
+  padding: .77rem 0;
+  border-radius: 54px;
+  margin-top: 1.27rem;
+  text-align: center;
+  font-size: .83rem;
+  -webkit-transition: background-color .25s;
+  transition: background-color .25s;
+}
+.Action-Button{
+  background-color: #6c41ec;
+}
+
+.Action-Button:hover {
+  background-color: rgba(108, 65, 233, .7);
+}
+
+.Search-Button{
+  background-color: #010c3f;
+}
+
+.Search-Button:hover{
+    background-color: rgba(1, 12, 63, .8);
+}
+
+
 
 @media only screen and (max-width: 1020px) {
   .App-playlist {

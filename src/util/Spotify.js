@@ -1,7 +1,7 @@
 let accessToken = undefined;
 let expiresIn = undefined;
-const redirectUri = 'http://greggles.surge.sh';
-//const redirectUri = 'http://localhost:3000/';
+//const redirectUri = 'http://greggles.surge.sh';
+const redirectUri = 'http://localhost:3000/';
 const clientId = 'eec9cfacecf748899f08399a8c4095cb';
 const spotifyUrl = `https://accounts.spotify.com/authorize?response_type=token&scope=playlist-modify-public&client_id=${clientId}&redirect_uri=${redirectUri}`;
 
@@ -83,6 +83,50 @@ search(term) {
         });
       })
     })
+  },
+
+  getUsersPlaylists(){
+    const currentUserPlaylists = `https://api.spotify.com/v1/me/playlists`;
+    return fetch(currentUserPlaylists, {
+        headers: {
+          Authorization: `Bearer ${accessToken}`
+        }
+      })
+      .then(response => response.json())
+      .then(jsonResponse => {
+        if (!jsonResponse.items) return [];
+        return jsonResponse.items.map(playlist => {
+          return {
+            id: playlist.id,
+            name: playlist.name,
+            tracks: playlist.tracks,
+            uri: playlist.uri
+          }
+        })
+      });
+  },
+
+  getUserPlaylistTracks(playlistID){
+    const playlistTracksURL = `	https://api.spotify.com/v1/playlists/${playlistID}/tracks`;
+    return fetch(playlistTracksURL, {
+        headers: {
+          Authorization: `Bearer ${accessToken}`
+        }
+      })
+      .then(response => response.json())
+      .then(jsonResponse => {
+        return jsonResponse.items.map(playlist => {
+          return {
+            id: playlist.track.id,
+            name: playlist.track.name,
+            artist: playlist.track.artists[0].name,
+            album: playlist.track.album.name,
+            uri: playlist.track.uri,
+            preview_url: playlist.track.preview_url
+          }
+        })
+      });
+
   }
 
 }
