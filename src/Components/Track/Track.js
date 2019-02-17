@@ -31,6 +31,7 @@ class Track extends React.Component{
     <div className="Track-information">
       <h3>{this.props.track.name}</h3>
     <p>{this.props.track.artist} {this.props.track.album} </p>
+    <audio controls><source src={this.props.track.preview_url} type="audio/mpeg"/></audio>
     </div>
     {this.renderAction()}
   </div>

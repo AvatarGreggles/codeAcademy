@@ -13,6 +13,7 @@
   transition: color .25s;
   background-color: #6c41ec;
   color: white;
+  margin-top: 35px;
 }
 
 .Track-action:hover {
@@ -24,7 +25,13 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  height: 72px;
+  height: auto;
+}
+
+.Track-information audio{
+  width: 90%;
+    padding: 20px 0px;
+
 }
 
 .Track-information h3 {

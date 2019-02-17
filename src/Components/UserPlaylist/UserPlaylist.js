@@ -21,8 +21,10 @@ checkForTracklist(){
     track = this.props.playlist.tracklist[i].name + ' ';
     previewUrl = this.props.playlist.tracklist[i].preview_url;
 
-    tracks.push(<a href={previewUrl} key={previewUrl} target="_blank" className="Play-Preview" rel="noopener noreferrer">►</a>);
+    //tracks.push(<a href={previewUrl} key={previewUrl} target="_blank" className="Play-Preview" rel="noopener noreferrer">►</a>);
+
     tracks.push([trackNum] + ': ' + track);
+    tracks.push(<audio controls><source src={previewUrl} type="audio/mpeg"/></audio>);
     tracks.push(<br key={[i]}/>);
     trackNum++;
   }
